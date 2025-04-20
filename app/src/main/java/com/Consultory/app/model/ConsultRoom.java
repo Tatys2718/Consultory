@@ -22,7 +22,6 @@ public class ConsultRoom {
     @Column(nullable = false)
     private String name;
 
-    @NotBlank
     @Column(nullable = false)
     private int floor;
 

@@ -5,8 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
@@ -21,6 +20,10 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Column(nullable = false)
+    private String fullName;
+
     @Email
     @NotBlank
     @Column(nullable = false)
@@ -28,13 +31,11 @@ public class Doctor {
 
     private String speciality;
 
-    @NotBlank
     @Column(nullable = false)
-    private LocalDateTime availableFrom;
+    private LocalTime availableFrom;
 
-    @NotBlank
     @Column(nullable = false)
-    private LocalDateTime availableTo;
+    private LocalTime availableTo;
 
     @OneToMany(mappedBy = "doctor")
     private Set<Appointment> appointments;

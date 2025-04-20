@@ -12,10 +12,10 @@ import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    @Query("SELECT a FROM Appointment a WHERE a.consultRoom.id = :IdConsultRoom AND" +
+    @Query("SELECT a FROM Appointment a WHERE (a.consultRoom.id = :IdConsultRoom OR a.doctor.id = :IdDoctor) AND" +
             "((a.startTime < :endTime AND a.endTime > :startTime))")
     List<Appointment> findConflicts (@Param("IdConsultRoom") Long IdConsultRoom,
+                                     @Param("IdDoctor") Long IdDoctor,
                                      @Param("startTime") LocalDateTime startTime,
                                      @Param("endTime") LocalDateTime endTime);
-
 }

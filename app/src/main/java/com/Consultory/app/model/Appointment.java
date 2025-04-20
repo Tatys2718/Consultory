@@ -20,16 +20,13 @@ public class Appointment {
     private Long id;
 
     @Future
-    @NotBlank
     @Column(nullable = false)
     private LocalDateTime startTime;
 
     @Future
-    @NotBlank
     @Column(nullable = false)
     private LocalDateTime endTime;
 
-    @NotBlank
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
@@ -45,5 +42,4 @@ public class Appointment {
     private Doctor doctor;
     @OneToOne(mappedBy = "appointment")
     private MedicalRecord medicalRecord;
-
 }

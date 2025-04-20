@@ -26,7 +26,6 @@ public class MedicalRecord {
     @Column(nullable = false)
     private String notes;
 
-    @NotBlank
     @Column(nullable = false)
     private LocalDateTime created;
 
