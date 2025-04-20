@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -77,7 +79,7 @@ public class AppointmentServiceImpl extends AppointmentService {
                 .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + id));
 
         if(existing.getStatus() == AppointmentStatus.COMPLETED){
-            throw new StatusAppointmentCompletedException("The appoinment existing is completed");
+            throw new StatusAppointmentCompletedException("The appointment existing is completed");
         }
 
         Patient patient = patientRepository.findById(dto.getPatientId())
@@ -113,14 +115,24 @@ public class AppointmentServiceImpl extends AppointmentService {
     @Override
     public AppointmentDTO cancelAppointment(Long id){
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cita no encontrada con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with ID: " + id));
 
         if (appointment.getStatus() == AppointmentStatus.COMPLETED) {
-            throw new IllegalStateException("No se puede cancelar una cita que ya ha sido completada.");
+            throw new IllegalStateException("You can´t cancel an appointment completed");
         }
 
         appointment.setStatus(AppointmentStatus.CANCELED);
         return appointmentMapper.toDTO(appointmentRepository.save(appointment));
+    }
+    @Override
+    public List<AppointmentDTO> getAppointmentsByDoctorAndDate(Long doctorId, LocalDate date){
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+        return appointmentRepository
+                .findByDoctorIdAndStartTimeBetween(doctorId, startOfDay, endOfDay)
+                .stream()
+                .map(appointmentMapper::toDTO)
+                .toList();
     }
     @Override
     public void deleteAppointment(Long id){

@@ -45,9 +45,18 @@ public class MedicalRecordServiceImpl extends MedicalRecordService {
                 .map(medicalRecordMapper::toDTO)
                 .toList();
     }
+
     @Override
     public MedicalRecordDTO getMedicalRecordById(Long id) {
         return medicalRecordRepository.findById(id).map(medicalRecordMapper::toDTO).orElseThrow(() -> new ResourceNotFoundException("Patient not found with ID: " + id));
+    }
+
+    @Override
+    public List<MedicalRecordDTO> getMedicalRecordsByPatientId(Long patientId){
+        List<MedicalRecord> records = medicalRecordRepository.findByPatientId(patientId);
+        return records.stream()
+                .map(medicalRecordMapper::toDTO)
+                .toList();
     }
 
     @Override

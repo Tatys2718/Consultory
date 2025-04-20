@@ -8,6 +8,7 @@ public interface DoctorService {
     DoctorDTO createDoctor(DoctorDTO dto);
     List<DoctorDTO> getAllDoctors();
     DoctorDTO getDoctorById(Long id);
+    List<DoctorDTO> getDoctorsBySpecialty(String specialty);
     DoctorDTO updateDoctor(Long id, DoctorDTO dto);
     void deleteDoctor(Long id);
 }

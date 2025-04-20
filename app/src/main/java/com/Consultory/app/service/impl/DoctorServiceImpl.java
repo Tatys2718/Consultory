@@ -30,7 +30,11 @@ public class DoctorServiceImpl extends DoctorService {
         return doctorRepository.findById(id).map(doctorMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor not found with ID: " + id));
     }
-
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecialty(String specialty){
+        List<Doctor> doctors = doctorRepository.findBySpecialtyIgnoreCase(specialty);
+        return doctors.stream().map(doctorMapper::toDto).toList();
+    }
     @Override
     public DoctorDTO updateDoctor(Long id, DoctorDTO doctorDTO) {
         Doctor existing = doctorRepository.findById(id)
