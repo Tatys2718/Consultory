@@ -4,6 +4,7 @@ import com.Consultory.app.Repository.AppointmentRepository;
 import com.Consultory.app.Repository.MedicalRecordRepository;
 import com.Consultory.app.Repository.PatientRepository;
 import com.Consultory.app.dto.MedicalRecordDTO;
+import com.Consultory.app.exception.ResourceNotFoundException;
 import com.Consultory.app.mapper.MedicalRecordMapper;
 import com.Consultory.app.model.Appointment;
 import com.Consultory.app.model.AppointmentStatus;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MedicalRecordServiceImpl extends MedicalRecordService {
+public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final MedicalRecordRepository medicalRecordRepository;
     private final AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;

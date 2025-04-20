@@ -2,6 +2,7 @@ package com.Consultory.app.service.impl;
 
 import com.Consultory.app.Repository.PatientRepository;
 import com.Consultory.app.dto.PatientDTO;
+import com.Consultory.app.exception.ResourceNotFoundException;
 import com.Consultory.app.mapper.PatientMapper;
 import com.Consultory.app.model.Patient;
 import com.Consultory.app.service.PatientService;

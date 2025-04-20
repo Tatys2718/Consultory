@@ -5,6 +5,7 @@ import com.Consultory.app.Repository.ConsultRoomRepository;
 import com.Consultory.app.Repository.DoctorRepository;
 import com.Consultory.app.Repository.PatientRepository;
 import com.Consultory.app.dto.AppointmentDTO;
+import com.Consultory.app.exception.*;
 import com.Consultory.app.mapper.AppointmentMapper;
 import com.Consultory.app.model.*;
 import com.Consultory.app.service.AppointmentService;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AppointmentServiceImpl extends AppointmentService {
+public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;

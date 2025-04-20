@@ -2,6 +2,7 @@ package com.Consultory.app.service.impl;
 
 import com.Consultory.app.Repository.ConsultRoomRepository;
 import com.Consultory.app.dto.ConsultRoomDTO;
+import com.Consultory.app.exception.ResourceNotFoundException;
 import com.Consultory.app.mapper.ConsultRoomMapper;
 import com.Consultory.app.model.ConsultRoom;
 import com.Consultory.app.service.ConsultRoomService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ConsultRoomServiceImpl extends ConsultRoomService {
+public class ConsultRoomServiceImpl implements ConsultRoomService {
     private final ConsultRoomRepository consultRoomRepository;
     private final ConsultRoomMapper consultRoomMapper;
 

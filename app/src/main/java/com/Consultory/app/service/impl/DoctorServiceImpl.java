@@ -2,6 +2,7 @@ package com.Consultory.app.service.impl;
 
 import com.Consultory.app.Repository.DoctorRepository;
 import com.Consultory.app.dto.DoctorDTO;
+import com.Consultory.app.exception.ResourceNotFoundException;
 import com.Consultory.app.mapper.DoctorMapper;
 import com.Consultory.app.model.Doctor;
 import com.Consultory.app.service.DoctorService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DoctorServiceImpl extends DoctorService {
+public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
 
