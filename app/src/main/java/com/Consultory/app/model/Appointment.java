@@ -34,12 +34,15 @@ public class Appointment {
     @ManyToOne
     @JoinColumn (name = "IdPatient")
     private Patient patient;
+
     @ManyToOne
     @JoinColumn (name = "IdConsultRoom")
     private ConsultRoom consultRoom;
+
     @ManyToOne
     @JoinColumn (name = "IdDoctor")
     private Doctor doctor;
+
     @OneToOne(mappedBy = "appointment")
     private MedicalRecord medicalRecord;
 }

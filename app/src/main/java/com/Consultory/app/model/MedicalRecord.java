@@ -32,6 +32,7 @@ public class MedicalRecord {
     @OneToOne
     @JoinColumn(name = "IdAppointment")
     private Appointment appointment;
+
     @ManyToOne
     @JoinColumn(name = "IdPatient")
     private Patient patient;
