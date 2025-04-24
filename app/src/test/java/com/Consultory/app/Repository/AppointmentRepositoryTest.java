@@ -59,6 +59,39 @@ class AppointmentRepositoryTest {
 
     @Test
     void shouldFindByDoctorIdAndStartTimeBetween() {
-        
+        Doctor doctor = doctorRepository.save(Doctor.builder().fullName("Dr. Smith").build());
+        Patient patient = patientRepository.save(Patient.builder().fullName("John Doe").build());
+        ConsultRoom room = consultRoomRepository.save(ConsultRoom.builder().name("RoomB").build());
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = now.plusDays(1);
+        LocalDateTime end = now.plusDays(2);
+
+        Appointment appointment1 = Appointment.builder()
+                .doctor(doctor)
+                .patient(patient)
+                .consultRoom(room)
+                .startTime(start.plusHours(1))
+                .endTime(start.plusHours(2))
+                .status(AppointmentStatus.SCHEDULED)
+                .build();
+
+        Appointment appointment2 = Appointment.builder()
+                .doctor(doctor)
+                .patient(patient)
+                .consultRoom(room)
+                .startTime(end.plusDays(1))
+                .endTime(end.plusDays(1).plusHours(1))
+                .status(AppointmentStatus.SCHEDULED)
+                .build();
+
+        appointmentRepository.saveAll(List.of(appointment1, appointment2));
+
+        List<Appointment> found = appointmentRepository.findByDoctorIdAndStartTimeBetween(
+                doctor.getId(), start, end
+        );
+
+        assertEquals(1, found.size());
+        assertEquals(appointment1.getStartTime(), found.get(0).getStartTime());
     }
 }
