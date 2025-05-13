@@ -110,7 +110,7 @@ class DoctorServiceTest {
 
     @Test
     void shouldGetDoctorsBySpecialty() {
-        String specialty = "Cardiology";
+        String speciality = "Cardiology";
 
         Doctor doctor = Doctor.builder()
                 .id(1L)
@@ -124,10 +124,10 @@ class DoctorServiceTest {
                 .fullName("Dr. Carter")
                 .build();
 
-        when(doctorRepository.findBySpecialtyIgnoreCase(specialty)).thenReturn(List.of(doctor));
+        when(doctorRepository.findBySpecialityIgnoreCase(speciality)).thenReturn(List.of(doctor));
         when(doctorMapper.toDto(doctor)).thenReturn(dto);
 
-        List<DoctorDTO> result = doctorService.getDoctorsBySpecialty(specialty);
+        List<DoctorDTO> result = doctorService.getDoctorsBySpecialty(speciality);
 
         assertEquals(1, result.size());
         assertEquals("Cardiology", result.get(0).getSpeciality());

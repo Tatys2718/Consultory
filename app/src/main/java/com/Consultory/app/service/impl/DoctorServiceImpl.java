@@ -32,8 +32,8 @@ public class DoctorServiceImpl implements DoctorService {
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor not found with ID: " + id));
     }
     @Override
-    public List<DoctorDTO> getDoctorsBySpecialty(String specialty){
-        List<Doctor> doctors = doctorRepository.findBySpecialtyIgnoreCase(specialty);
+    public List<DoctorDTO> getDoctorsBySpecialty(String speciality){
+        List<Doctor> doctors = doctorRepository.findBySpecialityIgnoreCase(speciality);
         return doctors.stream().map(doctorMapper::toDto).toList();
     }
     @Override

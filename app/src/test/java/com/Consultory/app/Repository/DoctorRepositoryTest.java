@@ -32,7 +32,7 @@ class DoctorRepositoryTest {
                 .speciality("Neurology")
                 .build());
 
-        List<Doctor> found = doctorRepository.findBySpecialtyIgnoreCase("CARDIOLOGY");
+        List<Doctor> found = doctorRepository.findBySpecialityIgnoreCase("CARDIOLOGY");
 
         assertEquals(2, found.size());
         assertTrue(found.stream().allMatch(doc -> doc.getSpeciality().equalsIgnoreCase("cardiology")));
