@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Setter
@@ -27,5 +26,4 @@ public class DoctorDTO {
     private LocalTime availableFrom;
     @NotNull
     private LocalTime availableTo;
-
 }

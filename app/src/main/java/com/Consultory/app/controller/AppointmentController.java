@@ -45,13 +45,13 @@ public class AppointmentController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<AppointmentDTO> updateAppointment(@PathVariable Long id, @Valid @RequestBody AppointmentDTO dto) {
         return ResponseEntity.ok(appointmentService.updateAppointment(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
     public ResponseEntity<AppointmentDTO> cancelAppointment(@PathVariable Long id) {
         return ResponseEntity.ok(appointmentService.cancelAppointment(id));
     }
