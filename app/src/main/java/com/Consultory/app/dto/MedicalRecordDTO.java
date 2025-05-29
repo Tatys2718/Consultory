@@ -1,5 +1,6 @@
 package com.Consultory.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,8 +19,9 @@ public class MedicalRecordDTO {
     private String diagnosis;
     @NotBlank
     private String notes;
-    @NotNull
-    private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime created;
 
     @NotNull
     private Long appointmentId;

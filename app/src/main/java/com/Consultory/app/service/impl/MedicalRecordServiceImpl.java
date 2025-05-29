@@ -29,7 +29,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         Patient patient = patientRepository.findById(dto.getPatientId())
                 .orElseThrow(() -> new RuntimeException("Patient not found with ID: " + dto.getPatientId()));
         Appointment appointment = appointmentRepository.findById(dto.getAppointmentId())
-                .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + dto.getPatientId()));
+                .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + dto.getAppointmentId()));
 
         if (appointment.getStatus() != AppointmentStatus.COMPLETED) {
             throw new IllegalStateException("Medical records can only be created for completed appointments.");
@@ -77,7 +77,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         existing.setAppointment(appointment);
         existing.setDiagnosis(dto.getDiagnosis());
         existing.setNotes(dto.getNotes());
-        existing.setCreated(dto.getCreatedAt());
+        existing.setCreated(dto.getCreated());
 
         return medicalRecordMapper.toDTO(medicalRecordRepository.save(existing));
     }

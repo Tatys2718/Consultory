@@ -35,7 +35,11 @@ public class UserInfoService implements UserDetailsService {
                         .orElseThrow(() -> new RuntimeException("Role no encontrado: " + rolEnum)))
                 .collect(Collectors.toSet());
 
-        User user = new User(null, userInfo.username(), passwordEncoder.encode(userInfo.password()), userInfo.email(), roles);
+        User user = new User();
+        user.setUsername(userInfo.username());
+        user.setPassword(passwordEncoder.encode(userInfo.password()));
+        user.setEmail(userInfo.email());
+        user.setRoles(roles);
         user = userRepository.save(user);
         Set<ERol> roleEnums = user.getRoles().stream()
                 .map(Role::getName)

@@ -50,7 +50,7 @@ class MedicalRecordServiceTest {
                 .appointmentId(appointmentId)
                 .diagnosis("Diagnosis test")
                 .notes("Rest and hydration")
-                .createdAt(LocalDateTime.now())
+                .created(LocalDateTime.now())
                 .build();
 
         Patient patient = Patient.builder().id(patientId).fullName("John Doe").build();
@@ -64,7 +64,7 @@ class MedicalRecordServiceTest {
         MedicalRecord medicalRecord = MedicalRecord.builder()
                 .diagnosis(dto.getDiagnosis())
                 .notes(dto.getNotes())
-                .created(dto.getCreatedAt())
+                .created(dto.getCreated())
                 .patient(patient)
                 .appointment(appointment)
                 .build();
@@ -115,7 +115,7 @@ class MedicalRecordServiceTest {
                 .id(1L)
                 .diagnosis("Diagnosis 1")
                 .notes("Notes 1")
-                .createdAt(medicalRecord1.getCreated())
+                .created(medicalRecord1.getCreated())
                 .patientId(patient.getId())
                 .appointmentId(appointment.getId())
                 .build();
@@ -124,7 +124,7 @@ class MedicalRecordServiceTest {
                 .id(2L)
                 .diagnosis("Diagnosis 2")
                 .notes("Notes 2")
-                .createdAt(medicalRecord2.getCreated())
+                .created(medicalRecord2.getCreated())
                 .patientId(patient.getId())
                 .appointmentId(appointment.getId())
                 .build();
@@ -174,7 +174,7 @@ class MedicalRecordServiceTest {
                 .id(id)
                 .diagnosis("Diagnosis Test")
                 .notes("Prescribe rest")
-                .createdAt(medicalRecord.getCreated())
+                .created(medicalRecord.getCreated())
                 .patientId(patient.getId())
                 .appointmentId(appointment.getId())
                 .build();
@@ -219,7 +219,7 @@ class MedicalRecordServiceTest {
                 .id(101L)
                 .diagnosis("Diagnosis A")
                 .notes("Notes A")
-                .createdAt(record1.getCreated())
+                .created(record1.getCreated())
                 .patientId(patientId)
                 .appointmentId(201L)
                 .build();
@@ -228,7 +228,7 @@ class MedicalRecordServiceTest {
                 .id(102L)
                 .diagnosis("Diagnosis B")
                 .notes("Notes B")
-                .createdAt(record2.getCreated())
+                .created(record2.getCreated())
                 .patientId(patientId)
                 .appointmentId(202L)
                 .build();
@@ -255,7 +255,7 @@ class MedicalRecordServiceTest {
                 .appointmentId(appointmentId)
                 .diagnosis("Updated Diagnosis")
                 .notes("Updated Notes")
-                .createdAt(LocalDateTime.now())
+                .created(LocalDateTime.now())
                 .build();
 
         Patient patient = Patient.builder().id(patientId).fullName("Updated Patient").build();
@@ -276,7 +276,7 @@ class MedicalRecordServiceTest {
                 .id(id)
                 .diagnosis(dto.getDiagnosis())
                 .notes(dto.getNotes())
-                .created(dto.getCreatedAt())
+                .created(dto.getCreated())
                 .patient(patient)
                 .appointment(appointment)
                 .build();
@@ -287,7 +287,7 @@ class MedicalRecordServiceTest {
                 .appointmentId(dto.getAppointmentId())
                 .diagnosis(dto.getDiagnosis())
                 .notes(dto.getNotes())
-                .createdAt(dto.getCreatedAt())
+                .created(dto.getCreated())
                 .build();
 
         when(medicalRecordRepository.findById(id)).thenReturn(Optional.of(existing));

@@ -110,6 +110,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         existing.setDoctor(doctor);
         existing.setStartTime(dto.getStartTime());
         existing.setEndTime(dto.getEndTime());
+        existing.setStatus(dto.getStatus());
 
         return appointmentMapper.toDTO(appointmentRepository.save(existing));
     }

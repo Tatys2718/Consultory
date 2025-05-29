@@ -1,6 +1,9 @@
 package com.Consultory.app.controller;
 
 import com.Consultory.app.dto.DoctorDTO;
+import com.Consultory.app.dto.UserInfo;
+import com.Consultory.app.model.ERol;
+import com.Consultory.app.security.services.UserInfoService;
 import com.Consultory.app.service.DoctorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,11 +21,18 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final UserInfoService service;
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DoctorDTO> createDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(doctorDTO));
+    }
+    @PostMapping("/register")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserInfo> addNewUser(@RequestBody UserInfo userInfo) {
+        UserInfo response = service.addUser(userInfo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping

@@ -38,6 +38,10 @@ public class UserController {
     }
     @PostMapping("/register")
     public ResponseEntity<UserInfo> addNewUser(@RequestBody UserInfo userInfo) {
+        if (!userInfo.roles().contains(ERol.ROLE_ADMIN)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo se pueden registrar usuarios con rol ADMIN");
+        }
+
         UserInfo response = service.addUser(userInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
