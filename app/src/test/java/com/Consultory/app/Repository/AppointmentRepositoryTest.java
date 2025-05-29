@@ -3,9 +3,14 @@ package com.Consultory.app.Repository;
 import com.Consultory.app.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
@@ -13,9 +18,19 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Testcontainers
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class AppointmentRepositoryTest {
+
+    @Container
+    private static final PostgreSQLContainer<?> postgreSQLContainer =
+            new PostgreSQLContainer<>("postgres:16")
+                    .withDatabaseName("testdb")
+                    .withUsername("testuser")
+                    .withPassword("testpass");
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -33,7 +48,7 @@ class AppointmentRepositoryTest {
     void shouldDetectConflictingAppointment() {
         LocalTime StartHourDoctor = LocalTime.of(9, 0);
         LocalTime EndHourDoctor = LocalTime.of(17, 0);
-        Patient patient = patientRepository.save(Patient.builder().fullName("Karen").email("ktmora@test.com").build());
+        Patient patient = patientRepository.save(Patient.builder().fullName("Karen").email("ktmora@test.com").phone("1234567890").build());
         ConsultRoom consultRoom = consultRoomRepository.save(ConsultRoom.builder().name("RoomA").floor(2).description("TestDescription").build());
         Doctor doctor = doctorRepository.save(Doctor.builder().fullName("Joseph").email("joseph@test.com").speciality("Psychiatry").availableFrom(StartHourDoctor).availableTo(EndHourDoctor).build());
 
@@ -59,9 +74,11 @@ class AppointmentRepositoryTest {
 
     @Test
     void shouldFindByDoctorIdAndStartTimeBetween() {
-        Doctor doctor = doctorRepository.save(Doctor.builder().fullName("Dr. Smith").build());
-        Patient patient = patientRepository.save(Patient.builder().fullName("John Doe").build());
-        ConsultRoom room = consultRoomRepository.save(ConsultRoom.builder().name("RoomB").build());
+        LocalTime StartHourDoctor = LocalTime.of(9, 0);
+        LocalTime EndHourDoctor = LocalTime.of(17, 0);
+        Doctor doctor = doctorRepository.save(Doctor.builder().fullName("Dr. Smith").email("joseph@test.com").speciality("Psychiatry").availableFrom(StartHourDoctor).availableTo(EndHourDoctor).build());
+        Patient patient = patientRepository.save(Patient.builder().fullName("John Doe").email("ktmora@test.com").phone("1234567890").build());
+        ConsultRoom room = consultRoomRepository.save(ConsultRoom.builder().name("RoomB").floor(2).description("TestDescription").build());
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = now.plusDays(1);
