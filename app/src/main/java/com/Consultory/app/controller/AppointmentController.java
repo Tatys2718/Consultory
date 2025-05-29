@@ -22,7 +22,8 @@ public class AppointmentController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.createAppointment(dto));
+        AppointmentDTO createdAppointment = appointmentService.createAppointment(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
     }
 
     @GetMapping

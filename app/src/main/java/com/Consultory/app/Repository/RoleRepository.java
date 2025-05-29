@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
-@RequestMapping
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByName(ERol name);
 }
